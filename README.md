@@ -1,28 +1,46 @@
-# Amul Fresh Express
+# 🥛 Amul Fresh Express
 
-Vite + React + Tailwind + Framer Motion + Supabase. Storefront at `/`, admin at `/admin`.
+A modern dairy supply and quick-commerce web application designed for seamless daily dairy delivery and inventory management.
 
-## 1. Supabase
-1. Create a project at supabase.com.
-2. SQL Editor → paste `supabase/migrations/001_amul_schema.sql` → Run.
-3. Project Settings → API → copy the Project URL and the anon public key.
+🔗 **Live Demo:** [amul-fresh-express.vercel.app](https://amul-fresh-express.vercel.app)
 
-## 2. Run locally
-```
-cp .env.example .env     # fill in both values
+---
+
+## ✨ Features
+
+- **Customer Storefront (`/`):** Fast, clean, and responsive UI for browsing dairy products and placing orders.
+- **Admin Dashboard (`/admin`):** Secure panel to manage inventory, track orders, and update product details.
+- **Robust Security:** Row-level and PIN-based verification backed directly by Supabase PostgreSQL.
+- **Fluid UI & Animations:** Built with Tailwind CSS and Framer Motion for a smooth shopping experience.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** React, Vite, Tailwind CSS, Framer Motion
+- **Backend & Database:** Supabase (PostgreSQL)
+- **Deployment:** Vercel
+
+---
+
+## 🚀 Setup & Installation
+
+### 1. Database Setup (Supabase)
+1. Create a new project at [supabase.com](https://supabase.com).
+2. Go to **SQL Editor** → Paste the contents of `supabase/migrations/001_amul_schema.sql` → Click **Run**.
+3. Go to **Project Settings** → **API** → Copy the **Project URL** and the **anon public key**.
+
+### 2. Run Locally
+```bash
+# Copy environment file
+cp .env.example .env
+
+# Fill in your Supabase credentials in .env:
+# VITE_SUPABASE_URL=your_project_url
+# VITE_SUPABASE_ANON_KEY=your_anon_key
+
+# Install dependencies
 npm install
+
+# Start development server
 npm run dev
-```
-
-## 3. Deploy on Vercel
-Push to GitHub → Vercel → Import → add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` as environment variables → Deploy. `vercel.json` already handles the `/admin` route.
-
-## Admin PIN
-Default PIN is `1234`. Change it before going live (SQL Editor):
-```
-update admin_secrets set pin_hash = extensions.crypt('YOUR-NEW-PIN', extensions.gen_salt('bf'));
-```
-The PIN is checked inside the database on every admin action, so the anon key alone cannot read orders or edit products.
-
-## Images
-Put product images in `public/images/<slug>.png` (slug as shown in the products table), or paste an Image URL in Admin. If neither loads, a branded initial placeholder shows.
